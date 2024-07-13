@@ -1,0 +1,33 @@
+name: Flutter Web
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Web
+
+    runs-on: ubuntu-latest
+
+    env:
+        working-directory: ./toonflix
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'dev'
+
+      - name: Flutter Web Build
+          run: |
+            flutter config --enable-web
+            flutter pub get
+            flutter build web --release
+          working-directory: ${{ env.working-directory }}
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'build: GitHub Pages'
+          branch: gh-pages
