@@ -21,14 +21,22 @@ jobs:
           channel: stable
           flutter-version-file: ${{ env.working-directory }}/pubspec.yaml
 
-      - name: Flutter Web Build
+      - name: Build Flutter Web
         run: |
           flutter config --enable-web
           flutter pub get
           flutter build web --release
         working-directory: ${{ env.working-directory }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 'build: GitHub Pages'
-          branch: gh-pages
+      - name: Deploy to GitHub Pages
+        run: |
+          git init
+          git config --global user.email topkim.dev@gmail.com
+          git config --global user.name topkim993
+          git status
+          git remote add origin https://${{secrets.ACTION_TOKEN}}@github.com/topkim993/practice-flutter.git
+          git checkout -b gh-pages
+          git add --all
+          git commit -m "build: Deploy to GitHub Pages"
+          git push origin gh-pages -f
+        working-directory: ${{ env.working-directory }}/build/web
