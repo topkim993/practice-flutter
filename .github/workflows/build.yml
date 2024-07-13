@@ -19,7 +19,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'dev'
-        working-directory: ${{ env.working-directory }}
+          flutter-version-file: ${{ env.working-directory }}/pubspec.yaml
 
       - name: Flutter Web Build
         run: |
