@@ -21,11 +21,11 @@ jobs:
           channel: 'dev'
 
       - name: Flutter Web Build
-          run: |
-            flutter config --enable-web
-            flutter pub get
-            flutter build web --release
-          working-directory: ${{ env.working-directory }}
+        run: |
+          flutter config --enable-web
+          flutter pub get
+          flutter build web --release
+        working-directory: ${{ env.working-directory }}
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
