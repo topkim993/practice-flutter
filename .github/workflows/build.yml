@@ -19,6 +19,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'dev'
+        working-directory: ${{ env.working-directory }}
 
       - name: Flutter Web Build
         run: |
